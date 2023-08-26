@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa322c53454393ed775cfe4807d54a50",
+    "content-hash": "9e817822657171b014c2ad7809cba755",
     "packages": [
         {
             "name": "brick/math",
@@ -5610,6 +5610,66 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xqueue/maileon-api-client",
+            "version": "v1.9.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xqueue/maileon-php-api-client.git",
+                "reference": "56f7ba3af6c37e99f09b4fd104d26fa434c86167"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xqueue/maileon-php-api-client/zipball/56f7ba3af6c37e99f09b4fd104d26fa434c86167",
+                "reference": "56f7ba3af6c37e99f09b4fd104d26fa434c86167",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-libxml": "*",
+                "ext-mbstring": "*",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.8",
+                "phpunit/phpunit": "^4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "de\\xqueue\\maileon\\api\\client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "XQueue GmbH, Marcus Beckerle",
+                    "email": "marcus.beckerle@xqueue.com"
+                },
+                {
+                    "name": "XQueue GmbH, Andreas Lange",
+                    "email": "andreas.lange@xqueue.com"
+                },
+                {
+                    "name": "Wanadis Devs",
+                    "email": "dev@maileon.hu"
+                }
+            ],
+            "description": "API-Client to XQ:Maileon",
+            "homepage": "https://www.maileon.de",
+            "keywords": [
+                "XQueue",
+                "maileon"
+            ],
+            "support": {
+                "issues": "https://github.com/xqueue/maileon-php-api-client/issues",
+                "source": "https://github.com/xqueue/maileon-php-api-client/tree/v1.9.9"
+            },
+            "time": "2023-06-27T05:17:54+00:00"
         }
     ],
     "packages-dev": [
