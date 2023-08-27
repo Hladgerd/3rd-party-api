@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\UpdateContactRequest;
-use App\Models\ContactModel;
 use de\xqueue\maileon\api\client\contacts\Contact;
 use de\xqueue\maileon\api\client\contacts\ContactsService;
 use de\xqueue\maileon\api\client\contacts\Permission;
@@ -79,20 +76,4 @@ class ContactController extends Controller
         return response()->json($contact);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateContactRequest $request, ContactModel $contact)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ContactModel $contact)
-    {
-        //
-    }
 }
