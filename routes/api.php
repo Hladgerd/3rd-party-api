@@ -16,7 +16,7 @@ use App\Http\Controllers\ContactController;
 */
 
 Route::get('/get-contact/{email}', [ContactController::class, 'show']);
-
+Route::post('/create-contact', [ContactController::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
