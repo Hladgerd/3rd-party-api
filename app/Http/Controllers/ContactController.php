@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
+use de\xqueue\maileon\api\client\contacts\ContactsService;
 
 class ContactController extends Controller
 {
@@ -41,7 +42,21 @@ class ContactController extends Controller
      */
     public function show(string $email)
     {
-        //
+        $contactsService = new ContactsService([
+            'API_KEY' => config('services.maileon.key'),
+        ]);
+
+        $getContact = $contactsService->getContactByEmail(
+            email: $email,
+        );
+
+        if (!$getContact->isSuccess()) {
+            die($getContact->getResultXML()->message);
+        }
+
+        $contact = $getContact->getResult();
+
+        return response()->json($contact);
     }
 
 
