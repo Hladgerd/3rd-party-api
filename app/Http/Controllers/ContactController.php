@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
-use App\Models\Contact;
+use App\Models\ContactModel;
+use de\xqueue\maileon\api\client\contacts\Contact;
 use de\xqueue\maileon\api\client\contacts\ContactsService;
+use de\xqueue\maileon\api\client\contacts\Permission;
+use de\xqueue\maileon\api\client\contacts\StandardContactField;
+use de\xqueue\maileon\api\client\contacts\SynchronizationMode;
 
 class ContactController extends Controller
 {
@@ -32,9 +36,25 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContactRequest $request)
+    public function store()
     {
-       //
+        $contactsService = new ContactsService([
+            'API_KEY' => config('services.maileon.key'),
+            'DEBUG'=> true // Remove on production config!
+        ]);
+
+// Create the contact object
+        $newContact = new Contact();
+        $newContact->email = "max.mustermann@xqueue.com";
+        $newContact->permission = Permission::$NONE; // The initial permission of the newly created contact. This can be converted to DOI after DOI process or can be set to something else, e.g. SOI, here already
+
+// If required, fill custom fields
+        $newContact->standard_fields[StandardContactField::$FIRSTNAME] = "Max";
+        $newContact->standard_fields[StandardContactField::$LASTNAME] = "Mustermann";
+
+        $response = $contactsService->createContact($newContact, SynchronizationMode::$UPDATE);
+
+        return $response;
     }
 
     /**
@@ -63,7 +83,7 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContactRequest $request, Contact $contact)
+    public function update(UpdateContactRequest $request, ContactModel $contact)
     {
         //
     }
@@ -71,7 +91,7 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact)
+    public function destroy(ContactModel $contact)
     {
         //
     }
