@@ -33,25 +33,28 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store($email)
     {
         $contactsService = new ContactsService([
             'API_KEY' => config('services.maileon.key'),
             'DEBUG'=> true // Remove on production config!
         ]);
 
-// Create the contact object
+        $standard_fields = array(
+            StandardContactField::$FIRSTNAME => 'Elek',
+            StandardContactField::$LASTNAME => 'Teszt',
+        );
+
         $newContact = new Contact();
-        $newContact->email = "max.mustermann@xqueue.com";
-        $newContact->permission = Permission::$NONE; // The initial permission of the newly created contact. This can be converted to DOI after DOI process or can be set to something else, e.g. SOI, here already
+        $newContact->email = $email;
+        $newContact->standard_fields = $standard_fields;
+        $newContact->permission = Permission::$DOI_PLUS;
 
-// If required, fill custom fields
-        $newContact->standard_fields[StandardContactField::$FIRSTNAME] = "Max";
-        $newContact->standard_fields[StandardContactField::$LASTNAME] = "Mustermann";
+        $sync_mode = SynchronizationMode::$UPDATE;
 
-        $response = $contactsService->createContact($newContact, SynchronizationMode::$UPDATE);
+        $response = $contactsService->createContact($newContact, $sync_mode);
 
-        return $response;
+        return response()->json($response);
     }
 
     /**
