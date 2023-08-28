@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\APIControllers;
 
+use App\Http\Controllers\Controller;
 use de\xqueue\maileon\api\client\contacts\Contact;
 use de\xqueue\maileon\api\client\contacts\ContactsService;
 use de\xqueue\maileon\api\client\contacts\Permission;
