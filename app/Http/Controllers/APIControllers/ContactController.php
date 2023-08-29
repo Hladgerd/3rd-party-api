@@ -11,30 +11,10 @@ use de\xqueue\maileon\api\client\contacts\SynchronizationMode;
 
 class ContactController extends Controller
 {
-
     /**
-     * The contact object stores all information you requested.
-     *
-     * Identifiers (Maileon ID, Maileon external id and email address), marketing permission
-     * level, creation date and last update date are always included if they are set in Maileon.
-     *
-     * ID: $contact->id
-     * Email: $contact->email
-     * Permission: $contact->permission->getType()
+     * Create a contact in Maileon
      */
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store($email)
+    public function store(string $email, $fname="", $lname="")
     {
         $contactsService = new ContactsService([
             'API_KEY' => config('services.maileon.key'),
@@ -42,8 +22,8 @@ class ContactController extends Controller
         ]);
 
         $standard_fields = array(
-            StandardContactField::$FIRSTNAME => 'Elek',
-            StandardContactField::$LASTNAME => 'Teszt',
+            StandardContactField::$FIRSTNAME => $fname,
+            StandardContactField::$LASTNAME => $lname,
         );
 
         $newContact = new Contact();
@@ -59,7 +39,7 @@ class ContactController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Request basic contact data identified by their email address
      */
     public function show(string $email)
     {
