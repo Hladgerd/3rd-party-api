@@ -60,11 +60,11 @@ class ContactController extends Controller
         );
 
         if (!$getContact->isSuccess()) {
-            die($getContact->getResultXML()->message);
+            return response()
+                ->json(['message' => $getContact->getResultXML()->message], $getContact->getStatusCode());
         }
 
         $contact = $getContact->getResult();
-
         return response()->json($contact);
     }
 
