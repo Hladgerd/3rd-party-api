@@ -18,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/get-contact/{email}', [ContactController::class, 'show']);
 Route::post('/create-contact/{email}/{fname?}/{lname?}', [ContactController::class, 'store']);
 
-
+/**  NON-EXISTENT ROUTES */
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. Try something else'], 404);
+});
