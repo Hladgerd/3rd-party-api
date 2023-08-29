@@ -13,20 +13,27 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
+    private static ContactsService $contactsService;
+
+    public function __construct()
+    {
+        if(!isset(self::$contactsService)) {
+            self::$contactsService = new ContactsService([
+                'API_KEY' => config('services.maileon.key'),
+                'DEBUG'=> true // Remove on production config!
+            ]);
+        }
+        return self::$contactsService;
+    }
+
     /**
      * Create a contact in Maileon
      */
     public function store(StoreContactRequest $request)
     {
-        $contactsService = new ContactsService([
-            'API_KEY' => config('services.maileon.key'),
-            'DEBUG'=> true // Remove on production config!
-        ]);
-
         $standardFields = array();
         $standardFields[StandardContactField::$FIRSTNAME]=$request->validated('first_name');
         $standardFields[StandardContactField::$LASTNAME]=$request->validated('last_name');
-
 
         $newContact = new Contact();
         $newContact->email = $request->validated('email');
@@ -35,7 +42,7 @@ class ContactController extends Controller
 
         $syncMode = SynchronizationMode::$UPDATE;
 
-        $response = $contactsService->createContact($newContact, $syncMode);
+        $response = self::$contactsService->createContact($newContact, $syncMode);
 
         return response()
             ->json($response)
@@ -47,11 +54,7 @@ class ContactController extends Controller
      */
     public function show(string $email)
     {
-        $contactsService = new ContactsService([
-            'API_KEY' => config('services.maileon.key'),
-        ]);
-
-        $getContact = $contactsService->getContactByEmail(
+        $getContact = self::$contactsService->getContactByEmail(
             email: $email,
         );
 
