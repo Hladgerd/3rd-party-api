@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Client\RequestException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -25,12 +26,13 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (Throwable $exception, $request) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'message' => $exception->getMessage(),
-                    'code' => $exception->getCode(),
-                ]);
+                if ($exception instanceof RequestException){
+                    return response()
+                        ->json(['message' => 'External API call failed'], 500);
+                }
+                return response()
+                    ->json(['message' => $exception->getMessage()], 500);
             }
-
             return parent::render($request, $exception);
         });
     }
