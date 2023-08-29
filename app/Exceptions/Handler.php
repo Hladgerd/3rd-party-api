@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Client\RequestException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -28,10 +29,10 @@ class Handler extends ExceptionHandler
             if ($request->is('api/*')) {
                 if ($exception instanceof RequestException){
                     return response()
-                        ->json(['message' => 'External API call failed'], 500);
+                        ->json(['message' => 'External API call failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
                 }
                 return response()
-                    ->json(['message' => $exception->getMessage()], 500);
+                    ->json(['message' => $exception->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
             return parent::render($request, $exception);
         });
