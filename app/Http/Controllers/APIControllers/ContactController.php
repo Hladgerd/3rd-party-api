@@ -44,9 +44,13 @@ class ContactController extends Controller
 
         $response = self::$contactsService->createContact($newContact, $syncMode);
 
+        if (!$response->isSuccess()) {
+            return response()
+                ->json(['message' => $response->getResultXML()->message], $response->getStatusCode());
+        }
+
         return response()
-            ->json($response)
-            ->setStatusCode(Response::HTTP_CREATED);
+            ->json(['message' => 'Contact was created successfully with id ' . $response->getResult()], $response->getStatusCode());
     }
 
     /**
