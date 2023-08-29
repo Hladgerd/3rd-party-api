@@ -35,7 +35,9 @@ class ContactController extends Controller
 
         $response = $contactsService->createContact($newContact, $sync_mode);
 
-        return response()->json($response);
+        return response()
+            ->json($response)
+            ->setStatusCode(201);;
     }
 
     /**
