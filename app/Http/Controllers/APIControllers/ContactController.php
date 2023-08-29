@@ -56,6 +56,7 @@ class ContactController extends Controller
     {
         $getContact = self::$contactsService->getContactByEmail(
             email: $email,
+            standard_fields: [StandardContactField::$FIRSTNAME, StandardContactField::$LASTNAME],
         );
 
         if (!$getContact->isSuccess()) {
