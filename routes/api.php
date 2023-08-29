@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 /**  CONTACT */
 Route::get('/get-contact/{email}', [ContactController::class, 'show']);
-Route::post('/create-contact/{email}', [ContactController::class, 'store']);
+Route::post('/create-contact/{email}/{fname?}/{lname?}', [ContactController::class, 'store']);
+
 
