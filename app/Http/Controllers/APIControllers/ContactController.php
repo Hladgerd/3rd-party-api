@@ -37,7 +37,7 @@ class ContactController extends Controller
 
         return response()
             ->json($response)
-            ->setStatusCode(201);;
+            ->setStatusCode(201);
     }
 
     /**
