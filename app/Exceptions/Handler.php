@@ -2,10 +2,15 @@
 
 namespace App\Exceptions;
 
+use de\xqueue\maileon\api\client\MaileonAPIException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Throwable;
+
 
 class Handler extends ExceptionHandler
 {
@@ -25,16 +30,32 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->renderable(function (Throwable $exception, $request) {
+        $this->renderable(function (Throwable $exception, Request $request) {
             if ($request->is('api/*')) {
                 if ($exception instanceof RequestException){
                     return response()
-                        ->json(['message' => 'External API call failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
+                        ->json(
+                            ['message' => $exception->getMessage()],
+                            Response::HTTP_INTERNAL_SERVER_ERROR
+                        );
                 }
-                return response()
-                    ->json(['message' => $exception->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+                if ($exception instanceof MaileonAPIException){
+                    return response()
+                        ->json(
+                            ['message' => 'Maileon API call failed with message: ' . $exception->getMessage()],
+                            Response::HTTP_INTERNAL_SERVER_ERROR
+                        );
+                }
+                if ($exception instanceof JsonException){
+                    return response()
+                        ->json(
+                            ['message' => $exception->getMessage()],
+                            Response::HTTP_BAD_REQUEST
+                        );
+                }
+
             }
-            return parent::render($request, $exception);
+
         });
     }
 }
