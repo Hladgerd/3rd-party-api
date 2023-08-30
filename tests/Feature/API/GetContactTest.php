@@ -19,7 +19,7 @@ class GetContactTest extends TestCase
     /**
      * Happy path
      */
-    public function test_request_returns_successful_response(): void
+    public function test_request_valid_uri_returns_successful_response(): void
     {
         $this->json('get', self::$validUri . self::$validEmail)
             ->assertStatus(Response::HTTP_OK);
@@ -57,6 +57,37 @@ class GetContactTest extends TestCase
 
     }
 
+
+    /**
+     * Negative tests
+     */
+    public function test_request_invalid_uri_returns_error_message(): void
+    {
+        $this->json('get', self::$invalidUri . self::$validEmail)
+            ->assertStatus(Response::HTTP_NOT_FOUND)
+            ->assertJson([
+                'message' => 'Incorrect route. Try something else',
+            ]);
+    }
+
+    public function test_request_with_invalid_email_returns_error_message(): void
+    {
+        $this->json('get', self::$validUri . self::$invalidEmail)
+            ->assertStatus(Response::HTTP_NOT_FOUND)
+            ->assertJson([
+                'message' => 'Incorrect route. Try something else',
+            ]);
+    }
+
+    public function test_request_without_email_returns_error_message(): void
+    {
+        $this->json('get', self::$validUri)
+            ->assertStatus(Response::HTTP_NOT_FOUND)
+            ->assertJson([
+                'message' => 'Incorrect route. Try something else',
+            ]);
+    }
+
     public function test_contact_not_found_with_nonexistent_email(): void
     {
         $this->json('get', self::$validUri . self::$nonExistentEmail)
@@ -65,8 +96,7 @@ class GetContactTest extends TestCase
                 'message' => [
                     '0' => 'contact with email ' . self::$nonExistentEmail . ' isn\'t found',
                 ]
-            ]);;
+            ]);
 
     }
-
 }
