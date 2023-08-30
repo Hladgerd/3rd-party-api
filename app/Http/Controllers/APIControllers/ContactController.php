@@ -9,7 +9,6 @@ use de\xqueue\maileon\api\client\contacts\ContactsService;
 use de\xqueue\maileon\api\client\contacts\Permission;
 use de\xqueue\maileon\api\client\contacts\StandardContactField;
 use de\xqueue\maileon\api\client\contacts\SynchronizationMode;
-use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
@@ -50,7 +49,10 @@ class ContactController extends Controller
         }
 
         return response()
-            ->json(['message' => 'Contact was created successfully with id ' . $response->getResult()], $response->getStatusCode());
+            ->json(
+                ['message' => 'Contact was created or updated successfully with id ' . $response->getResult()],
+                $response->getStatusCode()
+            );
     }
 
     /**
@@ -65,7 +67,10 @@ class ContactController extends Controller
 
         if (!$getContact->isSuccess()) {
             return response()
-                ->json(['message' => $getContact->getResultXML()->message], $getContact->getStatusCode());
+                ->json(
+                    ['message' => $getContact->getResultXML()->message],
+                    $getContact->getStatusCode()
+                );
         }
 
         $contact = $getContact->getResult();
