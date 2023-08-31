@@ -31,8 +31,8 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         $standardFields = array();
-        $standardFields[StandardContactField::$FIRSTNAME] = $request->validated('firstName');
-        $standardFields[StandardContactField::$LASTNAME]=$request->validated('lastName');
+        $standardFields[StandardContactField::$FIRSTNAME] = $request->validated('first_name');
+        $standardFields[StandardContactField::$LASTNAME]=$request->validated('last_name');
 
         $newContact = new Contact();
         $newContact->email = $request->validated('email');

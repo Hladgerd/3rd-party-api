@@ -21,8 +21,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -34,8 +34,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -51,8 +51,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -82,8 +82,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -98,15 +98,15 @@ class CreateContactTest extends TestCase
     {
         $payloadToCreate = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
         $payloadToUpdate = [
             'email'     => $payloadToCreate['email'],
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -115,8 +115,8 @@ class CreateContactTest extends TestCase
 
         $updatedContact = $this->get('/api/get-contact/' . $payloadToCreate['email'])->json();
 
-        $this->assertEquals($payloadToUpdate['firstName'], $updatedContact['standard_fields']['FIRSTNAME']);
-        $this->assertEquals($payloadToUpdate['lastName'], $updatedContact['standard_fields']['LASTNAME']);
+        $this->assertEquals($payloadToUpdate['first_name'], $updatedContact['standard_fields']['FIRSTNAME']);
+        $this->assertEquals($payloadToUpdate['last_name'], $updatedContact['standard_fields']['LASTNAME']);
     }
 
 
@@ -127,8 +127,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
@@ -154,8 +154,8 @@ class CreateContactTest extends TestCase
     public function test_request_without_email_returns_error_message(): void
     {
         $payload = [
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
         ];
 
         $this->json('post', self::$validUri, $payload)
@@ -170,8 +170,8 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => self::$invalidEmail,
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
         ];
 
         $this->json('post', self::$validUri, $payload)
@@ -186,15 +186,15 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => self::$invalidName,
-            'lastName'  => fake()->lastName,
+            'first_name' => self::$invalidName,
+            'last_name'  => fake()->lastName,
         ];
 
         $this->json('post', self::$validUri, $payload)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson([
                 'message' => 'The first name field must be a string.',
-                'errors' => ['firstName' => ['0' => 'The first name field must be a string.']]
+                'errors' => ['first_name' => ['0' => 'The first name field must be a string.']]
             ]);
     }
 
@@ -202,15 +202,15 @@ class CreateContactTest extends TestCase
     {
         $payload = [
             'email'     => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => self::$invalidName,
+            'first_name' => fake()->firstName,
+            'last_name'  => self::$invalidName,
         ];
 
         $this->json('post', self::$validUri, $payload)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson([
                 'message' => 'The last name field must be a string.',
-                'errors' => ['lastName' => ['0' => 'The last name field must be a string.']]
+                'errors' => ['last_name' => ['0' => 'The last name field must be a string.']]
             ]);
     }
 
@@ -218,15 +218,15 @@ class CreateContactTest extends TestCase
     {
         $payloadToCreate = [
             'email'      => fake()->safeEmail(),
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
         $payloadToUpdate = [
             'email'      => $payloadToCreate['email'],
-            'firstName' => fake()->firstName,
-            'lastName'  => fake()->lastName,
+            'first_name' => fake()->firstName,
+            'last_name'  => fake()->lastName,
 
         ];
 
