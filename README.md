@@ -58,10 +58,10 @@ All launched API requests are made over HTTPS
 ### Resources
 **Contacts**
 
- | Name                      | Method | Endpoint|
-|---------------------------|--------| ----------|
-| Get Contact By Email      | `GET`  | [/get-contact/<contact-email-address>](https:)|  
-| Create Contact With Email | `POST` | [/create-contact](https:)|
+ | Name                      | Method | Endpoint                                       |
+|---------------------------|--------|------------------------------------------------|
+| Get Contact By Email      | `GET`  | [/get-contact/<contact-email-address>](https:) |  
+| Create Contact With Email | `POST` | [/create-contact](https:)                      |
 
 Requests and responses are in JSON format.
 
