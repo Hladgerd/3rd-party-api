@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\API;
 
+use App\Http\Controllers\APIControllers\ContactController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,7 +104,7 @@ class GetContactTest extends TestCase
     }
 
 
-    //TODO: Test gets valid response i/o the mocked one, needs to be fixed
+    //TODO: Test gets valid response instead of the mocked one, needs to be fixed
 //    public function test_error_message_returned_when_Maileon_API_is_down()
 //    {
 //        // Mock response
