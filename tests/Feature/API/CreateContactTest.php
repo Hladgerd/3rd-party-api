@@ -182,6 +182,21 @@ class CreateContactTest extends TestCase
             ]);
     }
 
+    public function test_request_with_duplicated_email_field_returns_error_message(): void
+    {
+        $payload = [
+            'email'     => fake()->safeEmail(),
+            'email'     => fake()->safeEmail(),
+        ];
+
+        $this->json('post', self::$validUri, $payload)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJson([
+                'message' => 'One email field is required.',
+                'errors' => ['email' => ['One email field is required.']]
+            ]);
+    }
+
     public function test_request_with_invalid_first_name_format_returns_error_message(): void
     {
         $payload = [
