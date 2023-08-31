@@ -8,6 +8,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Throwable;
 
@@ -51,6 +52,13 @@ class Handler extends ExceptionHandler
                         ->json(
                             ['message' => $exception->getMessage()],
                             Response::HTTP_BAD_REQUEST
+                        );
+                }
+                if ($exception instanceof MethodNotAllowedHttpException){
+                    return response()
+                        ->json(
+                            ['message' => 'Incorrect route. Try something else'],
+                            Response::HTTP_NOT_FOUND
                         );
                 }
 
