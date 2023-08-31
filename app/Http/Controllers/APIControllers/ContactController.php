@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\APIControllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\APIRequests\StoreContactRequest;
 use de\xqueue\maileon\api\client\contacts\Contact;
 use de\xqueue\maileon\api\client\contacts\ContactsService;
 use de\xqueue\maileon\api\client\contacts\Permission;
@@ -19,7 +19,7 @@ class ContactController extends Controller
         if(!isset(self::$contactsService)) {
             self::$contactsService = new ContactsService([
                 'API_KEY' => config('services.maileon.key'),
-                'DEBUG'=> true // Remove on production config!
+//                'DEBUG'=> true // Uncomment to enable debug mode
             ]);
         }
         return self::$contactsService;
