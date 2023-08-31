@@ -94,6 +94,7 @@ None
 * Fix the error that contact is successfully created when payload was sent with duplicated required field (email).
 * Fix mock tests so that the test absorbs the mocked response (instead of the real one) in order 
 to test scenarios with Maileon API down
+* Add authentication tests
 
 
 ## Webshop engine familiarity
