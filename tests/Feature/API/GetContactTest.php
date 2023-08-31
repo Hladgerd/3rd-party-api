@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\API;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -98,5 +100,23 @@ class GetContactTest extends TestCase
                 ]
             ]);
 
+    }
+
+    public function test_error_message_returned_when_Maileon_API_is_down()
+    {
+        // Mock response
+        Http::fake([
+            'https://api.maileon.com/1.0/contacts/email/*' => Http::response([
+                'message' => [
+                    '0' => 'Sorry, we have technical issues',
+                ],
+            ], 500)
+        ]);
+
+        $this->json('get', self::$validUri . self::$validEmail)
+            ->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
+            ->assertJson([
+                'message' => 'Maileon API call failed with message: ' . 'Sorry, we have technical issues',
+            ]);
     }
 }
