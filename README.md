@@ -50,18 +50,18 @@ php artisan serve
 ## API Documentation
 ### Overview
 This project's JSON-based API is organised around REST and integrate [Maileon Rest API v1.0](https://support.maileon.com/support/rest-api-1-0/)  
-All requests are made to endpoints beginning:  
+All requests are made to the developer endpoint beginning:  
 http://localhost
 ### Authentication
 An API-Key is used to authenticate the application for authorized access to the Maileon API.  
-All API requests are made over HTTPS
+All launched API requests are made over HTTPS
 ### Resources
 **Contacts**
 
-Name | Method | Endpoint
---- |--------| ---
-Get Contact By Email | `GET`  | [/get-contact/<contact-email-address>](https:)
-Create Contact With Email | `POST` | [/create-contact](https:)
+ | Name                      | Method | Endpoint|
+|---------------------------|--------| ----------|
+| Get Contact By Email      | `GET`  | [/get-contact/<contact-email-address>](https:)|  
+| Create Contact With Email | `POST` | [/create-contact](https:)|
 
 Requests and responses are in JSON format.
 
@@ -91,10 +91,14 @@ php artisan test --coverage
 None
 
 ## Future Improvements
+* Fix the error that contact is successfully created when payload was sent with duplicated required field (email).
+* Fix mock tests so that the test absorbs the mocked response (instead of the real one) in order 
+to test scenarios with Maileon API down
+
 
 ## Webshop engine familiarity
 I haven't used any webshop engine yet, but I was curious and searched this topic.  
-Based what I found, I plan to start to study **Shoprenter**, what seems to be one of the most used webshop engine in Hungary.
+Based what I found, I plan to start to study **Shoprenter**, what seems to be one of the most used webshop engines in Hungary.
 
 
 
