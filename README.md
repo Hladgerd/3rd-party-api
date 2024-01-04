@@ -87,19 +87,12 @@ Open the project in a terminal and run:
 php artisan test --coverage
 ```
 
-## Integration Details
-None
 
 ## Future Improvements
 * Fix the error that contact is successfully created when payload was sent with duplicated required field (email).
 * Fix mock tests so that the test absorbs the mocked response (instead of the real one) in order 
 to test scenarios with Maileon API down
 * Add authentication tests
-
-
-## Webshop engine familiarity
-I haven't used any webshop engine yet, but I was curious and searched this topic.  
-Based what I found, I plan to start to study **Shoprenter**, what seems to be one of the most used webshop engines in Hungary.
 
 
 
