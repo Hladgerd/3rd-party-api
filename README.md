@@ -1,6 +1,11 @@
 # 3rd Party API Integration via Laravel
 
 ## Getting started
+This is a simple Laravel application with two API endpoints that integrate with a 3rd Party mail API.
+Its functionalities are to create a contact in the Maileon system with the provided data, allowing the setup of DOI permission level and of sync mode.
+
+
+
 ### Installation
 Please check the official Laravel installation guide for server requirements before you start: [Official Documentation](https://laravel.com/docs/10.x)
 
